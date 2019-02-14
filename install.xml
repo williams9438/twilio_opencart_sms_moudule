@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<modification> 
+	<name><![CDATA[twilio sms notification]]></name> 
+	<code>ocmod-twilio</code> 
+	<version><![CDATA[1.0.0]]></version>
+	<author><![CDATA[Upscale-tech-OpenCartWorks]]></author>
+	<link>http://www.upscale-tech.com</link> 
+	
+	
+	<!--========catalog/controller/mail/order.php=============--> 
+	<file path="catalog/controller/mail/order.php"> 
+		<operation>
+			<search index="0"><![CDATA[
+				<?php
+			]]></search>
+			<add position="after"><![CDATA[			
+				use Twilio\Rest\Client;
+			]]></add>
+		</operation>
+	</file>
+
+	<!--========catalog/controller/mail/order.php=============--> 
+	<file path="catalog/controller/mail/order.php"> 
+		<operation>
+			<search index="0"><![CDATA[
+				$mail->send();
+			]]></search>
+			<add position="after"><![CDATA[			
+				$this->sendSMS($order_info['telephone'], $this->load->view('mail/order_add_sms', $data));
+			]]></add>
+		</operation>
+	</file>
+
+	<!--========catalog/controller/mail/order.php=============--> 
+	<file path="catalog/controller/mail/order.php"> 
+		<operation>
+			<search index="1"><![CDATA[
+				$mail->send();
+			]]></search>
+			<add position="after"><![CDATA[			
+				$this->sendSMS($order_info['telephone'], $this->load->view('mail/order_edit_sms', $data));
+			]]></add>
+		</operation>
+	</file>
+
+	<!--========catalog/controller/mail/order.php=============--> 
+	<file path="catalog/controller/mail/order.php"> 
+		<operation>
+			<search index="0"><![CDATA[
+				public function index(&$route, &$args) {
+			]]></search>
+			<add  position="before"><![CDATA[			
+				private function sendSMS($customer_phone, $body){
+					$this->load->model('setting/setting');
+					$twilio_sms_config = $this->model_setting_setting->getSetting('module_twilio_sms');
+					if(isset($twilio_sms_config['module_twilio_sms_status']) && (int)$twilio_sms_config['module_twilio_sms_status'] == 1){
+						// Find your Account Sid and Auth Token at twilio.com/console
+						$sid    = isset($twilio_sms_config['module_twilio_sms_account_sid']) ? $twilio_sms_config['module_twilio_sms_account_sid'] : 0;
+						$token  = isset($twilio_sms_config['module_twilio_sms_account_auth_token']) ? $twilio_sms_config['module_twilio_sms_account_auth_token'] : 0;
+						$twilio_phone_number = isset($twilio_sms_config['module_twilio_sms_account_phone_number']) ? $twilio_sms_config['module_twilio_sms_account_phone_number'] : 0;
+						$country_code = "+234";
+						if($customer_phone[0] == '+'){
+							$customer_phone = $customer_phone;
+						}else $customer_phone = $country_code.$customer_phone;
+						$twilio = new Client($sid, $token);
+						$message = $twilio->messages
+						->create($customer_phone, // to
+							array("from" => $twilio_phone_number, "body" => $body)
+						);
+					}
+				}
+			]]></add>
+		</operation>
+	</file>
+
+	<!--========catalog/controller/mail/transaction.php=============--> 
+	<file path="catalog/controller/mail/transaction.php"> 
+		<operation>
+			<search index="0"><![CDATA[
+				<?php
+			]]></search>
+			<add position="after"><![CDATA[			
+				use Twilio\Rest\Client;
+			]]></add>
+		</operation>
+	</file>
+
+	<!--========catalog/controller/mail/transaction.php=============--> 
+	<file path="catalog/controller/mail/transaction.php"> 
+		<operation>
+			<search index="0"><![CDATA[
+				$mail->send();
+			]]></search>
+			<add position="after"><![CDATA[			
+				$this->sendSMS($customer_info['telephone'], $this->load->view('mail/transaction', $data));
+			]]></add>
+		</operation>
+	</file>
+
+	<!--========catalog/controller/mail/transaction.php=============--> 
+	<file path="catalog/controller/mail/transaction.php"> 
+		<operation>
+			<search index="0"><![CDATA[
+				public function index(&$route, &$args, &$output) {
+			]]></search>
+			<add  position="before"><![CDATA[			
+				private function sendSMS($customer_phone, $body){
+					$this->load->model('setting/setting');
+					$twilio_sms_config = $this->model_setting_setting->getSetting('module_twilio_sms');
+					if(isset($twilio_sms_config['module_twilio_sms_status']) && (int)$twilio_sms_config['module_twilio_sms_status'] == 1){
+						// Find your Account Sid and Auth Token at twilio.com/console
+						$sid    = isset($twilio_sms_config['module_twilio_sms_account_sid']) ? $twilio_sms_config['module_twilio_sms_account_sid'] : 0;
+						$token  = isset($twilio_sms_config['module_twilio_sms_account_auth_token']) ? $twilio_sms_config['module_twilio_sms_account_auth_token'] : 0;
+						$twilio_phone_number = isset($twilio_sms_config['module_twilio_sms_account_phone_number']) ? $twilio_sms_config['module_twilio_sms_account_phone_number'] : 0;
+						$country_code = "+234";
+						if($customer_phone[0] == '+'){
+							$customer_phone = $customer_phone;
+						}else $customer_phone = $country_code.$customer_phone;
+						$twilio = new Client($sid, $token);
+						$message = $twilio->messages
+						->create($customer_phone, // to
+							array("from" => $twilio_phone_number, "body" => $body)
+						);
+					}
+				}
+			]]></add>
+		</operation>
+	</file>
+
+	<!--========catalog/controller/mail/register.php=============--> 
+	<file path="catalog/controller/mail/register.php"> 
+		<operation>
+			<search index="0"><![CDATA[
+				<?php
+			]]></search>
+			<add position="after"><![CDATA[			
+				use Twilio\Rest\Client;
+			]]></add>
+		</operation>
+	</file>
+
+	<!--========catalog/controller/mail/register.php=============--> 
+	<file path="catalog/controller/mail/register.php"> 
+		<operation>
+			<search index="0"><![CDATA[
+				$mail->send();
+			]]></search>
+			<add position="after"><![CDATA[			
+				$this->sendSMS($args[0]['telephone'], $this->load->view('mail/register', $data));
+			]]></add>
+		</operation>
+	</file>
+
+	<!--========catalog/controller/mail/register.php=============--> 
+	<file path="catalog/controller/mail/register.php"> 
+		<operation>
+			<search index="0"><![CDATA[
+				public function index(&$route, &$args, &$output) {
+			]]></search>
+			<add  position="before"><![CDATA[			
+				private function sendSMS($customer_phone, $body){
+					$this->load->model('setting/setting');
+					$twilio_sms_config = $this->model_setting_setting->getSetting('module_twilio_sms');
+					if(isset($twilio_sms_config['module_twilio_sms_status']) && (int)$twilio_sms_config['module_twilio_sms_status'] == 1){
+						// Find your Account Sid and Auth Token at twilio.com/console
+						$sid    = isset($twilio_sms_config['module_twilio_sms_account_sid']) ? $twilio_sms_config['module_twilio_sms_account_sid'] : 0;
+						$token  = isset($twilio_sms_config['module_twilio_sms_account_auth_token']) ? $twilio_sms_config['module_twilio_sms_account_auth_token'] : 0;
+						$twilio_phone_number = isset($twilio_sms_config['module_twilio_sms_account_phone_number']) ? $twilio_sms_config['module_twilio_sms_account_phone_number'] : 0;
+						$country_code = "+234";
+						if($customer_phone[0] == '+'){
+							$customer_phone = $customer_phone;
+						}else $customer_phone = $country_code.$customer_phone;
+						$twilio = new Client($sid, $token);
+						$message = $twilio->messages
+						->create($customer_phone, // to
+							array("from" => $twilio_phone_number, "body" => $body)
+						);
+					}
+				}
+			]]></add>
+		</operation>
+	</file>
+
+	<!--========admin/controller/mail/customer.php=============--> 
+	<file path="admin/controller/mail/customer.php"> 
+		<operation>
+			<search index="0"><![CDATA[
+				<?php
+			]]></search>
+			<add position="after"><![CDATA[			
+				use Twilio\Rest\Client;
+			]]></add>
+		</operation>
+	</file>
+
+	<!--========admin/controller/mail/customer.php=============--> 
+	<file path="admin/controller/mail/customer.php"> 
+		<operation>
+			<search index="0"><![CDATA[
+				$mail->send();
+			]]></search>
+			<add position="after"><![CDATA[			
+				$this->sendSMS($customer_info['telephone'], $this->load->view('mail/customer_approve', $data));
+			]]></add>
+		</operation>
+	</file>
+
+	<!--========admin/controller/mail/customer.php=============--> 
+	<file path="admin/controller/mail/customer.php"> 
+		<operation>
+			<search index="1"><![CDATA[
+				$mail->send();
+			]]></search>
+			<add position="after"><![CDATA[			
+				$this->sendSMS($customer_info['telephone'], $this->load->view('mail/customer_deny', $data));
+			]]></add>
+		</operation>
+	</file>
+
+	<!--========cadmin/controller/mail/customer.php=============--> 
+	<file path="admin/controller/mail/customer.php"> 
+		<operation>
+			<search index="0"><![CDATA[
+				public function approve(&$route, &$args, &$output) {
+			]]></search>
+			<add  position="before"><![CDATA[			
+				private function sendSMS($customer_phone, $body){
+					$this->load->model('setting/setting');
+					$twilio_sms_config = $this->model_setting_setting->getSetting('module_twilio_sms');
+					if(isset($twilio_sms_config['module_twilio_sms_status']) && (int)$twilio_sms_config['module_twilio_sms_status'] == 1){
+						// Find your Account Sid and Auth Token at twilio.com/console
+						$sid    = isset($twilio_sms_config['module_twilio_sms_account_sid']) ? $twilio_sms_config['module_twilio_sms_account_sid'] : 0;
+						$token  = isset($twilio_sms_config['module_twilio_sms_account_auth_token']) ? $twilio_sms_config['module_twilio_sms_account_auth_token'] : 0;
+						$twilio_phone_number = isset($twilio_sms_config['module_twilio_sms_account_phone_number']) ? $twilio_sms_config['module_twilio_sms_account_phone_number'] : 0;
+						$country_code = "+234";
+						if($customer_phone[0] == '+'){
+							$customer_phone = $customer_phone;
+						}else $customer_phone = $country_code.$customer_phone;
+						$twilio = new Client($sid, $token);
+						$message = $twilio->messages
+						->create($customer_phone, // to
+							array("from" => $twilio_phone_number, "body" => $body)
+						);
+					}
+				}
+			]]></add>
+		</operation>
+	</file>
+
+</modification>
