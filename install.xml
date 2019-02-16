@@ -6,6 +6,31 @@
 	<author><![CDATA[Upscale-tech-OpenCartWorks]]></author>
 	<link>http://www.upscale-tech.com</link> 
 	
+	<!--========Language File should come first=============--> 
+	<!--========catalog/language/en-gb/mail/order_add.php=============--> 
+	<file path="catalog/language/en-gb/mail/order_add.php"> 
+		<operation>
+			<search index="0"><![CDATA[
+				$_['text_footer']           = 'Please reply to this e-mail if you have any questions.';
+			]]></search>
+			<add position="after"><![CDATA[			
+				$_['text_thanks']         = 'Thanks,';
+			]]></add>
+		</operation>
+	</file>
+
+	<!--========catalog/language/en-gb/mail/order_edit.php=============--> 
+	<file path="catalog/language/en-gb/mail/order_edit.php"> 
+		<operation>
+			<search index="0"><![CDATA[
+				$_['text_footer']           = 'Please reply to this e-mail if you have any questions.';
+			]]></search>
+			<add position="after"><![CDATA[			
+				$_['text_thanks']         = 'Thanks,';
+			]]></add>
+		</operation>
+	</file>
+	<!--========Language File Modification End=============-->
 	
 	<!--========catalog/controller/mail/order.php=============--> 
 	<file path="catalog/controller/mail/order.php"> 
@@ -247,30 +272,6 @@
 						);
 					}
 				}
-			]]></add>
-		</operation>
-	</file>
-
-	<!--========catalog/language/en-gb/mail/order_add.php=============--> 
-	<file path="catalog/language/en-gb/mail/order_add.php"> 
-		<operation>
-			<search index="0"><![CDATA[
-				$_['text_footer']           = 'Please reply to this e-mail if you have any questions.';
-			]]></search>
-			<add position="after"><![CDATA[			
-				$_['text_thanks']         = 'Thanks,';
-			]]></add>
-		</operation>
-	</file>
-
-	<!--========catalog/language/en-gb/mail/order_edit.php=============--> 
-	<file path="catalog/language/en-gb/mail/order_edit.php"> 
-		<operation>
-			<search index="0"><![CDATA[
-				$_['text_footer']           = 'Please reply to this e-mail if you have any questions.';
-			]]></search>
-			<add position="after"><![CDATA[			
-				$_['text_thanks']         = 'Thanks,';
 			]]></add>
 		</operation>
 	</file>
